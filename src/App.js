@@ -9,7 +9,9 @@ function App() {
 	const [items, setItems] = useState(['Medias', 'Chocolates', 'Libros'])
 
 	const handleAdd = (item) => {
-		setItems([...items, item])
+		if (validItem(item)) {
+			setItems([...items, item])
+		}
 	}
 
 	const handleRemove = (index) => {
@@ -21,6 +23,10 @@ function App() {
 	const handleRemoveAll = () => {
 		console.log('remove all')
 		setItems([])
+	}
+
+	const validItem = (item) => {
+		return item!=='' && items.findIndex((val) => (val.toLowerCase() === item.toLowerCase())) === -1
 	}
 
 	let action
