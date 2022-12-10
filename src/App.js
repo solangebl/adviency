@@ -6,11 +6,14 @@ import Message from './components/Message'
 import Button from './components/Button'
 
 function App() {
-	const [items, setItems] = useState(['Medias', 'Chocolates', 'Libros'])
+	const [items, setItems] = useState([])
 
-	const handleAdd = (item) => {
+	const handleAdd = (item, amount) => {
 		if (validItem(item)) {
-			setItems([...items, item])
+			const present = {
+				item, amount
+			}
+			setItems([...items, present])
 		}
 	}
 
@@ -25,8 +28,8 @@ function App() {
 		setItems([])
 	}
 
-	const validItem = (item) => {
-		return item!=='' && items.findIndex((val) => (val.toLowerCase() === item.toLowerCase())) === -1
+	const validItem = (newI) => {
+		return newI!=='' && items.findIndex(({item}) => (item.toLowerCase() === newI.toLowerCase())) === -1
 	}
 
 	let action
