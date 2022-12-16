@@ -6,26 +6,31 @@ import Message from './components/Message'
 import Button from './components/Button'
 
 function App() {
-	const [items, setItems] = useState([])
+	const [items, setItems] = useState(JSON.parse(localStorage.getItem('items')) ?? [])
 
 	const handleAdd = (item, amount) => {
 		if (validItem(item)) {
 			const present = {
 				item, amount
 			}
-			setItems([...items, present])
+			const it = [...items, present]
+			setItems(it)
+			localStorage.setItem('items', JSON.stringify(it))
 		}
 	}
 
 	const handleRemove = (index) => {
-		setItems(items.filter((v, i) => {
+		const it = items.filter((v, i) => {
 			return i!==index
-		}))
+		})
+		setItems(it)
+		localStorage.setItem('items', JSON.stringify(it))
 	}
 
 	const handleRemoveAll = () => {
 		console.log('remove all')
 		setItems([])
+		localStorage.clear()
 	}
 
 	const validItem = (newI) => {
